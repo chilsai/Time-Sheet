@@ -1,0 +1,119 @@
+<aura:component controller="TimeSheetController" implements="force:appHostable">
+  <aura:attribute name="timeReport" type="weekTimeReport" />
+  <aura:attribute name="newTime" type="Time_Entry__c" />
+  <aura:attribute name="TotalHours" type="decimal" />
+  <aura:attribute name="currentDate" type="Date" />
+  <ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system.min.css" 
+                		scripts="/resource/jquery"/>       
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds">
+        
+        <div class="slds-page-header" role="banner">
+            <div class="slds-grid">
+                <div class="slds-col slds-has-flexi-truncate">
+                    <h1 class="slds-text-heading--medium slds-truncate" title="All Accounts">Time</h1>
+                    <div class="slds-media slds-media--center">
+                            <div class="slds-media__figure">
+                                <c:svgIcon svgPath="/resource/SLDS203/assets/icons/standard-sprite/svg/symbols.svg#today" category="standard" size="large" name="today" />
+                            </div>
+                            <div class="slds-media__body">
+                              <p class="slds-page-header__title slds-truncate slds-align-middle" 
+                                 title="Today">{!v.timeReport.totalHours}</p>
+                              <p class="slds-text-body--small page-header__info">
+                                  Hours is recorded this week {!v.timeReport.startDate} - {!v.timeReport.weekEndDate}</p>
+                            </div>
+                          </div>                	
+                </div>
+                <div class="slds-col slds-no-flex slds-align-bottom">
+                <div class="slds-button-group">
+                	<button class="slds-button slds-button--neutral" onclick="{!c.showModal}">Add New Entry</button>
+                </div>
+                </div>
+            </div>
+        	
+        </div>
+               
+     
+        <div class="slds-grid slds-grid--vertical-align-center slds-grid--align-center">        
+            <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer">
+                <thead>
+                    <tr class="slds-text-heading--label">
+                        <th scope="col"><span class="slds-truncate">Task</span></th>
+                        <th scope="col"><span class="slds-truncate">Project</span></th>
+                        <th scope="col"><span class="slds-truncate">Hours</span></th>
+                        <th scope="col"><span class="slds-truncate">Details</span></th>  
+                    </tr>
+                </thead>            
+                <tbody>	
+                    <aura:iteration items="{!v.timeReport.timeEntries}" var="timeEntry">
+                        <tr>
+                            <td>{!timeEntry.Task__r.Name}</td>
+                            <td>{!timeEntry.Time_Sheet__r.Project__r.Name}</td>  
+                            <td>{!timeEntry.Time__c}</td>                                             
+                            <td>                                
+                            <c:button class="slds-button slds-button--icon-x-small"                           
+                                          svgXlinkHref="/resource/SLDS203/assets/icons/action-sprite/svg/symbols.svg#edit_relationship"
+                                          svgClass="slds-icon slds-icon-text-default"
+                                          onclick="{!c.showDetails}"
+                                          data="{!timeEntry.Id}"/>                        
+                            </td>              
+                        </tr>
+                    </aura:iteration>	
+                </tbody>
+            </table>                 
+       </div>                             
+	<!-- New Entry Grid -->   
+    <div aria-hidden="false" id="newAccountSectionId" role="dialog" class="slds-modal slds-modal--small slds-fade-in-open" style="display:none;">
+    <div class="slds-modal__container">
+        <div class="slds-modal__header">
+        <h2 class="slds-text-heading--medium">Enter Task Name</h2>
+        <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
+            <c:svg class="slds-button__icon slds-button__icon--large"
+            xlinkHref="/resource/SLDS/assets/icons/action-sprite/svg/symbols.svg#close"
+            ariaHidden="true"
+            />
+        <span class="slds-assistive-text">Close</span>
+        </button>
+        </div>
+
+            <div class="slds-modal__content">        
+                <div>
+                    <div class="slds-form-element">                        
+                        <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click" aria-expanded="false">
+                          <button class="slds-button slds-button--neutral slds-picklist__label" aria-haspopup="true" aria-activedescendant="">
+                            <span class="slds-truncate">Select an Option</span>							
+                          </button>
+                            
+                          <div class="slds-dropdown slds-dropdown--left">
+                            <ul class="dropdown__list slds-dropdown--length-5" role="menu">
+                              <li class="slds-dropdown__item">
+                                <a href="javascript:void(0);" role="menuitem">
+                                  <p class="slds-truncate">Option A</p>
+                                </a>
+                              </li>
+                             </ul>
+                            </div>
+
+                            
+                        </div>
+                    </div>        
+                </div>  
+                <br></br>
+            </div>        
+
+            <div class="slds-modal__footer">
+                <div class="slds-x-small-buttons--horizontal">
+                	<button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >Cancel</button>
+                    <button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.saveAccount}">Start/Stop Timer</button>
+                </div>
+            </div>
+                
+        </div>        
+    </div>
+	<!-- End of New Entry Grid -->        
+        
+        
+   <div class="slds-backdrop slds-backdrop--open" id="backGroundSectionId" style="display:none;"></div>     
+   </div>           
+</aura:component>
