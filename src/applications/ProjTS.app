@@ -5,4 +5,5 @@
     <tab>Time_Sheet__c</tab>
     <tab>Project__c</tab>
     <tab>standard-report</tab>
+    <tab>Time_Entry</tab>
 </CustomApplication>

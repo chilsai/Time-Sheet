@@ -9,29 +9,28 @@ Referenced in TeamMemberTrigger
 public class TeamMemberTriggerHandler{
 
 
-    public static void ReCaliculateTeamMembers(list<Team_Member__c> teamMembers, boolean isInsert){        
+    public static void ReCaliculateTeamMembersShare(list<Team_Member__c> teamMembers,map<Id,Team_Member__c> OldRecords, boolean isDelete){        
         list<Project__Share> proShareList = new list<Project__Share>();
         map<string,string>  TeamMembrToProjMap = new Map<string,string>();
         
         for(Team_Member__c temBr: teamMembers){
-            if(isInsert){                
+            if(!isDelete){                
                 Project__Share pShare = new Project__Share();
                 pShare.userorGroupId = temBr.Employee__c;
                 pShare.AccessLevel = 'Edit';
                 pShare.ParentId = temBr.Project__c;
                 proShareList.add(pShare);
+                if(OldRecords != null && OldRecords.containskey(temBr.Id)){
+                    TeamMembrToProjMap.put(OldRecords.get(temBr.Id).Employee__c,OldRecords.get(temBr.Id).Project__c);
+                }                
             }else{
                 TeamMembrToProjMap.put(temBr.Employee__c,temBr.Project__c);                
             }
         }
         
-        if(isInsert && proShareList.size() > 0){ 
-            insert proShareList;
-                        
-            // The false parameter allows for partial processing if multiple records passed 
-            // into the operation.
-            list<Database.SaveResult> sr = Database.insert(proShareList,false);
-               
+        if(proShareList.size() > 0){                         
+            // The false parameter allows for partial processing if multiple records passed into the operation.            
+            list<Database.SaveResult> sr = Database.insert(proShareList,false);               
         }
         
         list<Project__Share> proShareDeleteList = new list<Project__Share>();

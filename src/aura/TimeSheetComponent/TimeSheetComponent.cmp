@@ -1,27 +1,32 @@
-<aura:component controller="TimeSheetController" implements="force:appHostable">
-  <aura:attribute name="timeReport" type="weekTimeReport" />
-  <aura:attribute name="newTime" type="Time_Entry__c" />
-  <aura:attribute name="TotalHours" type="decimal" />
-  <aura:attribute name="currentDate" type="Date" />
-  <ltng:require styles="/resource/SLDS203/assets/styles/salesforce-lightning-design-system.min.css" 
-                		scripts="/resource/jquery"/>       
+<aura:component controller="TimeSheetController" implements="force:appHostable,force:hasRecordId">
+  <aura:attribute name="timeReport" type="weekTimeReport" />  
+  <aura:attribute name="timeSheetList" type="Time_Sheet__c[]" />
+  <aura:attribute name="taskList" type="Task__c[]" />
+  <aura:attribute name="SelectedTimeSheet" type="string" />
+  <aura:attribute name="SelectedTask" type="string" />
+  <aura:attribute name="Hours" type="string" /> 
+  <aura:attribute name="HostName" type="string" /> 
+  <aura:attribute name="currentDate" type="Date" />    
+  <!--<ltng:require styles="https://projts-dev-ed.lightning.force.com/resource/SLDS203/assets/styles/salesforce-lightning-design-system.min.css"/>-->
+  <ltng:require styles="/resource/projts__SLDS203/assets/styles/salesforce-lightning-design-system.min.css"/>       
   <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
-
+	
     <div class="slds">
-        
+        {!HostName}
         <div class="slds-page-header" role="banner">
             <div class="slds-grid">
                 <div class="slds-col slds-has-flexi-truncate">
-                    <h1 class="slds-text-heading--medium slds-truncate" title="All Accounts">Time</h1>
+                    <h1 class="slds-text-heading--medium slds-truncate" title="All Accounts">Time (HH:MM)</h1>
                     <div class="slds-media slds-media--center">
                             <div class="slds-media__figure">
-                                <c:svgIcon svgPath="/resource/SLDS203/assets/icons/standard-sprite/svg/symbols.svg#today" category="standard" size="large" name="today" />
+                                <!--<c:svgIcon svgPath="https://projts-dev-ed.lightning.force.com/resource/SLDS203/assets/icons/standard-sprite/svg/symbols.svg#today" category="standard" size="large" name="today" />-->
+                                <c:svgIcon svgPath="/resource/projts__SLDS203/assets/icons/standard-sprite/svg/symbols.svg#today" category="standard" size="large" name="today" />
                             </div>
                             <div class="slds-media__body">
                               <p class="slds-page-header__title slds-truncate slds-align-middle" 
                                  title="Today">{!v.timeReport.totalHours}</p>
                               <p class="slds-text-body--small page-header__info">
-                                  Hours is recorded this week {!v.timeReport.startDate} - {!v.timeReport.weekEndDate}</p>
+                                  Tracked this week {!v.timeReport.startDate} - {!v.timeReport.weekEndDate}</p>
                             </div>
                           </div>                	
                 </div>
@@ -38,81 +43,95 @@
         <div class="slds-grid slds-grid--vertical-align-center slds-grid--align-center">        
             <table class="slds-table slds-table--bordered slds-table--striped slds-table--cell-buffer">
                 <thead>
-                    <tr class="slds-text-heading--label">
-                        <th scope="col"><span class="slds-truncate">Task</span></th>
-                        <th scope="col"><span class="slds-truncate">Project</span></th>
-                        <th scope="col"><span class="slds-truncate">Hours</span></th>
-                        <th scope="col"><span class="slds-truncate">Details</span></th>  
+                    <tr class="slds-text-heading--label">                                                
+						<th scope="col"><span class="slds-truncate">Task</span></th>                                                                        
+						<th scope="col"><span class="slds-truncate">Hours</span></th>                                                
+						<th scope="col"><span class="slds-truncate">Action</span></th>						
+                        <th scope="col"><span class="slds-truncate">Project</span></th>                                                 
+                        <th scope="col"><span class="slds-truncate">Date</span></th>
                     </tr>
                 </thead>            
                 <tbody>	
                     <aura:iteration items="{!v.timeReport.timeEntries}" var="timeEntry">
-                        <tr>
-                            <td>{!timeEntry.Task__r.Name}</td>
-                            <td>{!timeEntry.Time_Sheet__r.Project__r.Name}</td>  
-                            <td>{!timeEntry.Time__c}</td>                                             
-                            <td>                                
-                            <c:button class="slds-button slds-button--icon-x-small"                           
-                                          svgXlinkHref="/resource/SLDS203/assets/icons/action-sprite/svg/symbols.svg#edit_relationship"
-                                          svgClass="slds-icon slds-icon-text-default"
-                                          onclick="{!c.showDetails}"
-                                          data="{!timeEntry.Id}"/>                        
-                            </td>              
+                        <tr>                                                        
+                            <td>{!timeEntry.projts__Task__r.Name}</td>
+                            <td>{!timeEntry.projts__Time__c}</td>                   
+                            <td>								
+                            	<aura:if isTrue="{!timeEntry.projts__Timer_Started__c}">                                	
+                                    <button title="Stop" type="button" onclick="{!c.StopTimer}" style="background:none!important;border:none;">
+                                        <!--<img src="https://projts-dev-ed.lightning.force.com/resource/TimerGif" id="{!timeEntry.Id}" width="20" length="20"/></button>-->                                    
+                                        <img src="/resource/projts__TimerGif" id="{!timeEntry.Id}" width="20" length="20"/></button>
+                            	</aura:if>                                 
+								<aura:if isTrue="{!!timeEntry.projts__Timer_Started__c}">                                	
+                                    <button title="Start" type="button" onclick="{!c.StartTimer}" style="background:none!important;border:none;">
+                                        <!--<img src="https://projts-dev-ed.lightning.force.com/resource/StopTimer" id="{!timeEntry.Id}" width="20" length="20"/></button>-->                                    
+                                        	<img src="/resource/projts__StopTimer" id="{!timeEntry.Id}" width="20" length="20"/></button>
+                            	</aura:if>                                                                 
+                            </td>                            
+							<td>{!timeEntry.projts__Time_Sheet__r.projts__Project__r.Name}</td>                                                                                                                   
+                            <td>{!timeEntry.projts__Date__c}</td> 
                         </tr>
                     </aura:iteration>	
                 </tbody>
             </table>                 
-       </div>                             
+       </div> 
+               
 	<!-- New Entry Grid -->   
-    <div aria-hidden="false" id="newAccountSectionId" role="dialog" class="slds-modal slds-modal--small slds-fade-in-open" style="display:none;">
-    <div class="slds-modal__container">
-        <div class="slds-modal__header">
-        <h2 class="slds-text-heading--medium">Enter Task Name</h2>
-        <button class="slds-button slds-button--icon-inverse slds-modal__close" onclick="{!c.showModalBox}">
-            <c:svg class="slds-button__icon slds-button__icon--large"
-            xlinkHref="/resource/SLDS/assets/icons/action-sprite/svg/symbols.svg#close"
-            ariaHidden="true"
-            />
-        <span class="slds-assistive-text">Close</span>
-        </button>
-        </div>
-
-            <div class="slds-modal__content">        
-                <div>
-                    <div class="slds-form-element">                        
-                        <div class="slds-picklist slds-dropdown-trigger slds-dropdown-trigger--click" aria-expanded="false">
-                          <button class="slds-button slds-button--neutral slds-picklist__label" aria-haspopup="true" aria-activedescendant="">
-                            <span class="slds-truncate">Select an Option</span>							
-                          </button>
-                            
-                          <div class="slds-dropdown slds-dropdown--left">
-                            <ul class="dropdown__list slds-dropdown--length-5" role="menu">
-                              <li class="slds-dropdown__item">
-                                <a href="javascript:void(0);" role="menuitem">
-                                  <p class="slds-truncate">Option A</p>
-                                </a>
-                              </li>
-                             </ul>
-                            </div>
-
-                            
-                        </div>
-                    </div>        
-                </div>  
+    <div aria-hidden="false" id="newTimeSectionId" role="dialog" class="slds-modal slds-modal--small slds-fade-in-open" style="display:none;">
+        <div class="slds-modal__container">
+            <div class="slds-modal__header">
+                <h2 class="slds-text-heading--medium">New Time Entry</h2>
+                <button class="slds-button slds-button--icon slds-modal__close" onclick="{!c.showModalBox}">
+                    <c:svg class="slds-button__icon slds-button__icon--small"
+                    xlinkHref="/resource/SLDS/assets/icons/action-sprite/svg/symbols.svg#close"
+                    ariaHidden="true"/>
+                <span class="slds-assistive-text">Close</span>
+                </button>
+            </div>
+    
+            <div class="slds-modal__content">                            
+                <div class="slds-col--padded slds-size--1-of-1 slds-form-element">                    
+                    <div class="slds-grid slds-grid--pull-padded">
+                        <div class="slds-col--padded">
+                            <label class="slds-form-element__label slds-text-heading--small" for="status">Select Project</label>
+                            <div class="slds-form-element">
+                                <ui:inputSelect aura:id="timeSheetId" class="slds-select statusVal" multiple="false" value="{!v.SelectedTimeSheet}" change="{!c.getTasks}" >
+                                    <aura:iteration items="{!v.timeSheetList}" var="timeSheet">
+                                        <ui:inputSelectOption text="{!timeSheet.Id}" label="{!timeSheet.projts__Project__r.Name}"/>  
+                                    </aura:iteration>                                                                                                   
+                                </ui:inputSelect>
+                            </div>                                                           
+                        </div>                         
+                    </div>                                                                                       
+                </div>
                 <br></br>
+                <div class="slds-col--padded slds-size--1-of-1 slds-form-element">
+                    <div class="slds-grid slds-grid--pull-padded">
+						<div class="slds-col--padded">
+                            <label class="slds-form-element__label slds-text-heading--small" for="status">Select Task</label>
+                            <div class="slds-form-element">
+                                <ui:inputSelect aura:id="timeSheetId" class="slds-select statusVal" multiple="false" value="{!v.SelectedTask}" >
+                                    <aura:iteration items="{!v.taskList}" var="taskRec">
+                                        <ui:inputSelectOption text="{!taskRec.Id}" label="{!taskRec.Name}"/>
+                                    </aura:iteration>                                                               
+                                </ui:inputSelect>
+                            </div>                                                           
+                        </div>                       
+                    </div>
+                </div>                                						  
+            <br></br>
             </div>        
-
+    
             <div class="slds-modal__footer">
                 <div class="slds-x-small-buttons--horizontal">
-                	<button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >Cancel</button>
-                    <button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.saveAccount}">Start/Stop Timer</button>
+                    <button class="slds-button slds-button--neutral" onclick="{!c.showModalBox}" >Cancel</button>                    
+                    <button class="slds-button slds-button--neutral slds-button--brand" onclick="{!c.createNewTimeEntry}">Start Time</button>                                                                              
                 </div>
             </div>
-                
+                    
         </div>        
     </div>
 	<!-- End of New Entry Grid -->        
-        
         
    <div class="slds-backdrop slds-backdrop--open" id="backGroundSectionId" style="display:none;"></div>     
    </div>           

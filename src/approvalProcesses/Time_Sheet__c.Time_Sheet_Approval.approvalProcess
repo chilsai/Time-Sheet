@@ -7,9 +7,9 @@
     </allowedSubmitters>
     <approvalPageFields>
         <field>Name</field>
-        <field>Project__c</field>
-        <field>Status__c</field>
-        <field>Weekend_Date__c</field>
+        <field>projts__Project__c</field>
+        <field>projts__Status__c</field>
+        <field>projts__Weekend_Date__c</field>
     </approvalPageFields>
     <approvalStep>
         <allowDelegate>false</allowDelegate>

@@ -56,21 +56,11 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <fields>
-        <fullName>Employee__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Employee</label>
-        <referenceTo>User</referenceTo>
-        <relationshipName>Time_Sheet</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Project_Manager__c</fullName>
         <deleteConstraint>SetNull</deleteConstraint>
+        <description>This field is updated by using Process Builder. Used to Send the Time Sheet approval for Project Manager</description>
         <externalId>false</externalId>
+        <inlineHelpText>Time Sheet Approved By Manager</inlineHelpText>
         <label>Project Manager</label>
         <referenceTo>User</referenceTo>
         <relationshipName>Time_Sheet1</relationshipName>
@@ -114,36 +104,21 @@
         <type>Picklist</type>
     </fields>
     <fields>
-        <fullName>Team_Member__c</fullName>
-        <deleteConstraint>SetNull</deleteConstraint>
-        <externalId>false</externalId>
-        <label>Team Member</label>
-        <referenceTo>Team_Member__c</referenceTo>
-        <relationshipLabel>Time Sheet</relationshipLabel>
-        <relationshipName>Time_Sheet</relationshipName>
-        <required>false</required>
-        <trackHistory>false</trackHistory>
-        <trackTrending>false</trackTrending>
-        <type>Lookup</type>
-    </fields>
-    <fields>
         <fullName>Total_Billing__c</fullName>
         <externalId>false</externalId>
-        <formula>(Team_Member__r.Billing_Rate__c / 60) *  Total_TIme__c</formula>
-        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Billing</label>
-        <precision>18</precision>
-        <required>false</required>
-        <scale>2</scale>
+        <summarizedField>Time_Entry__c.Total_Billing_Price__c</summarizedField>
+        <summaryForeignKey>Time_Entry__c.Time_Sheet__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
         <trackHistory>false</trackHistory>
         <trackTrending>false</trackTrending>
-        <type>Currency</type>
+        <type>Summary</type>
     </fields>
     <fields>
-        <fullName>Total_TIme__c</fullName>
+        <fullName>Total_Time__c</fullName>
         <externalId>false</externalId>
         <inlineHelpText>In Minutes</inlineHelpText>
-        <label>Total TIme</label>
+        <label>Total Time</label>
         <summarizedField>Time_Entry__c.Minutes__c</summarizedField>
         <summaryForeignKey>Time_Entry__c.Time_Sheet__c</summaryForeignKey>
         <summaryOperation>sum</summaryOperation>
@@ -154,7 +129,7 @@
     <fields>
         <fullName>Total_Time_in_Hours__c</fullName>
         <externalId>false</externalId>
-        <formula>TEXT(FLOOR( Total_TIme__c / 60))&amp;&quot;:&quot;&amp;TEXT(MOD( Total_TIme__c ,60))</formula>
+        <formula>TEXT(FLOOR( Total_Time__c / 60))&amp;&quot;:&quot;&amp;TEXT(MOD( Total_Time__c ,60))</formula>
         <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
         <label>Total Time in Hours</label>
         <required>false</required>
@@ -179,7 +154,7 @@
         <label>All</label>
     </listViews>
     <nameField>
-        <displayFormat>TS-{00000}</displayFormat>
+        <displayFormat>TS-{DD}{MM}{YYYY}{000}</displayFormat>
         <label>Time Sheet Name</label>
         <trackHistory>false</trackHistory>
         <type>AutoNumber</type>

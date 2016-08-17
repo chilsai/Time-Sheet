@@ -87,7 +87,7 @@
                         <stringValue>Boolean</stringValue>
                     </value>
                 </processMetadataValues>
-                <leftValueReference>myVariable_current.Project__r.Project_Manager__c</leftValueReference>
+                <leftValueReference>myVariable_current.projts__Project__r.Project_Manager__c</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -190,7 +190,7 @@
             </processMetadataValues>
             <field>Project_Manager__c</field>
             <value>
-                <elementReference>myVariable_current.Project__r.Project_Manager__c</elementReference>
+                <elementReference>myVariable_current.projts__Project__r.Project_Manager__c</elementReference>
             </value>
         </inputAssignments>
         <object>Time_Sheet__c</object>

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>GenerateTimeSheetBatch</members>
+        <members>ScheduleGenerateTimeSheet</members>
         <members>TeamMemberTriggerHandler</members>
+        <members>TeamMemberTriggerHandler</members>
+        <members>TeamMemberTriggerHandlerTest</members>
+        <members>TestScheduleGenerateTimeSheet</members>
+        <members>TimeEntryTriggerHandler</members>
+        <members>TimeEntryTriggerHandlerTest</members>
         <members>TimeSheetController</members>
+        <members>TimeSheetController</members>
+        <members>TimeSheetControllerTest</members>
+        <members>weekTimeReport</members>
         <members>weekTimeReport</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>TeamMemberTrigger</members>
+        <members>TimeEntryTrigger</members>
         <name>ApexTrigger</name>
     </types>
     <types>
@@ -15,6 +26,7 @@
         <name>ApprovalProcess</name>
     </types>
     <types>
+        <members>TimeSheetApp</members>
         <members>TimeSheetComponent</members>
         <members>button</members>
         <members>svg</members>
@@ -64,6 +76,8 @@
     </types>
     <types>
         <members>SLDS203</members>
+        <members>StopTimer</members>
+        <members>TimerGif</members>
         <members>jQuery</members>
         <name>StaticResource</name>
     </types>

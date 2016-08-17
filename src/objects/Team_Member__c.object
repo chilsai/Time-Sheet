@@ -60,7 +60,7 @@
         <externalId>false</externalId>
         <label>Billing Rate</label>
         <precision>18</precision>
-        <required>false</required>
+        <required>true</required>
         <scale>0</scale>
         <trackTrending>false</trackTrending>
         <type>Currency</type>
@@ -134,9 +134,18 @@
     </nameField>
     <pluralLabel>Team Members</pluralLabel>
     <searchLayouts>
+        <customTabListAdditionalFields>Employee__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Project__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Role__c</customTabListAdditionalFields>
         <lookupDialogsAdditionalFields>Employee__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Project__c</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>Role__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Employee__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Project__c</lookupPhoneDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Role__c</lookupPhoneDialogsAdditionalFields>
+        <searchResultsAdditionalFields>Employee__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Project__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Role__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>ControlledByParent</sharingModel>
 </CustomObject>
