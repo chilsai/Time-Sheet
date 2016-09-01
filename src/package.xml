@@ -2,16 +2,27 @@
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
         <members>GenerateTimeSheetBatch</members>
+        <members>ProjectSelector</members>
+        <members>SObjectDomain</members>
+        <members>SObjectSelector</members>
+        <members>SObjectUnitOfWork</members>
         <members>ScheduleGenerateTimeSheet</members>
-        <members>TeamMemberTriggerHandler</members>
-        <members>TeamMemberTriggerHandler</members>
+        <members>StringBuilder</members>
+        <members>TaskSelector</members>
+        <members>TaskService</members>
+        <members>TeamMemberSelector</members>
         <members>TeamMemberTriggerHandlerTest</members>
+        <members>TeamMembers</members>
         <members>TestScheduleGenerateTimeSheet</members>
-        <members>TimeEntryTriggerHandler</members>
+        <members>TimeEntries</members>
+        <members>TimeEntrySelector</members>
+        <members>TimeEntryService</members>
         <members>TimeEntryTriggerHandlerTest</members>
         <members>TimeSheetController</members>
         <members>TimeSheetController</members>
         <members>TimeSheetControllerTest</members>
+        <members>TimeSheetSelector</members>
+        <members>TimeSheetService</members>
         <members>weekTimeReport</members>
         <members>weekTimeReport</members>
         <name>ApexClass</name>

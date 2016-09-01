@@ -32,6 +32,14 @@
                 <behavior>Edit</behavior>
                 <field>Weekend_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Total_Time__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Project_Manager__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -68,6 +76,9 @@
         <fields>NAME</fields>
         <fields>Task__c</fields>
         <fields>Time__c</fields>
+        <fields>Minutes__c</fields>
+        <fields>Team_Member__c.Billing_Rate__c</fields>
+        <fields>Timer_Started__c</fields>
         <relatedList>Time_Entry__c.Time_Sheet__c</relatedList>
     </relatedLists>
     <relatedLists>

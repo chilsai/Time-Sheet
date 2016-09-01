@@ -1,7 +1,6 @@
-trigger TimeEntryTrigger on Time_Entry__c (before insert,before update) {
-    
-    if(Trigger.IsBefore && (Trigger.IsUpdate || Trigger.Isinsert)){
-        TimeEntryTriggerHandler.UpdateTimerMinutes(trigger.new,trigger.oldmap);
-    }
+trigger TimeEntryTrigger on Time_Entry__c (after delete, after insert, after update, before delete, before insert, before update) {    
+        
+    // Creates Domain class instance and calls apprpoprite overideable methods according to Trigger state
+    SObjectDomain.triggerHandler(TimeEntries.class);    
     
 }
