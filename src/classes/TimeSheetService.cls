@@ -1,6 +1,5 @@
 /*
-*
-*
+*  Service class encapsulate business logic for Time Sheet Sobject
 */
 
 global with sharing class TimeSheetService {       

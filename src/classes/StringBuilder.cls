@@ -1,5 +1,5 @@
 /**
- * 
+ *  Util Class to Construct Dynamic SObject Query 
 **/
 
 public virtual with sharing class StringBuilder

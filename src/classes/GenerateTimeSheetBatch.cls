@@ -1,10 +1,13 @@
-/***************************************************************************
+/**
+ * Class implements the required interfaces for Scheduling and executing in Batch
+ * Description: Used to Generate the Time Sheet on Every Sunday
+ *
+ * NOTE: The service and selector methods are reused, logic in this batch class is thus very light,
+ *        focusing on passing paramters in and handling errors and notfications
+ *
+ **/ 
 
-Description: Used to Generate the Time Sheet on Every Sunday
-
-***************************************************************************/
-
-global class GenerateTimeSheetBatch implements Database.Batchable<sObject>{
+global class GenerateTimeSheetBatch implements Database.Batchable<sObject>,Database.Stateful{
 
 
     // Simple job log for errors
@@ -13,7 +16,6 @@ global class GenerateTimeSheetBatch implements Database.Batchable<sObject>{
     global Database.QueryLocator start(Database.BatchableContext BC){
         date Today = System.today();        
         string TodayString = string.ValueOf(Today);                
-
         return new ProjectSelector().getNonExpiredProjectS(Today);
     }
     
@@ -31,7 +33,7 @@ global class GenerateTimeSheetBatch implements Database.Batchable<sObject>{
     }
     
     global void finish(Database.BatchableContext BC){
-        // Notify Job Status : TODO
+        // Notify Job Status 
     }
     
     /**

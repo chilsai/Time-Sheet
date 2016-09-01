@@ -1,5 +1,5 @@
 /**
- * 
+*  Selector Class to Construct the Dynamic Query for Project (Sobject)
  **/
 public class ProjectSelector extends SObjectSelector {
 
@@ -15,7 +15,9 @@ public class ProjectSelector extends SObjectSelector {
         return project__c.sObjectType;
     }
 
-
+    /**
+     * Queries Project records by record Ids
+     **/   
     public List<project__c> selectById(Set<ID> idSet){
         return (List<project__c>) selectSObjectsById(idSet);
     }
@@ -28,8 +30,7 @@ public class ProjectSelector extends SObjectSelector {
                     new List<String>{
                         getFieldListString(),
                         getSObjectName()
-                    });    
-                    system.debug('SSSSSS'+query );     
+                    });        
         return Database.getQueryLocator(query);  
     }
     

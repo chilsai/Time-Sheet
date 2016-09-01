@@ -1,5 +1,5 @@
 /**
- * 
+ *  Selector Class to Construct the Dynamic Query for Team Member(Sobject)
  **/
 public class TeamMemberSelector extends SObjectSelector {
 
@@ -13,7 +13,10 @@ public class TeamMemberSelector extends SObjectSelector {
     public Schema.SObjectType getSObjectType(){
         return Team_Member__c.sObjectType;
     }
-
+    
+    /**
+     * Queries Team Member records and return map of Id
+     **/ 
     public List<Team_Member__c> selectById(Set<ID> idSet){
         return (List<Team_Member__c>) selectSObjectsById(idSet);
     }

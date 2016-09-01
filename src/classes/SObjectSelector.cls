@@ -1,10 +1,5 @@
 /**
- *   
- *  
- *  
- *  
- *  
- *  
+ *   Generic SObjectSeletor to Construct Query based
  *  
 **/
 

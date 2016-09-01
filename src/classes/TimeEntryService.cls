@@ -1,5 +1,5 @@
 /*
-*
+*  Service class encapsulate business logic for Time Entry Sobject
 *
 */
 

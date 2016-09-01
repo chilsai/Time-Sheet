@@ -1,6 +1,5 @@
 /*
-*
-*
+*  Service class encapsulate business logic for Task__c Sobject
 */
 
 global with sharing class TaskService {       

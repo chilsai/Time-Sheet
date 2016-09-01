@@ -1,10 +1,10 @@
 /**************************************************************************************
-
-Description : 1. Controller for TimeSheetComponent (Lightining Component)
-              2. Used to Create Time Entry, Start Timer and Stop Timer.
-              3. Used to Display Overall Tasks and Time for Current Week.
-
-**************************************************************************************/
+*
+*Description : 1. Controller for TimeSheetComponent (Lightining Component)
+*              2. Used to Create Time Entry, Start Timer and Stop Timer.
+*              3. Used to Display Overall Tasks and Time for Current Week.
+*
+*/
 
 public with sharing class TimeSheetController {
         

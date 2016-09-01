@@ -1,5 +1,5 @@
 /**
- * 
+ *  Selector Class to Construct the Dynamic Query for Task (Sobject)
  **/
 public class TaskSelector extends SObjectSelector {
 
@@ -14,6 +14,9 @@ public class TaskSelector extends SObjectSelector {
         return Task__c.sObjectType;
     }
 
+    /**
+     * Queries Task records by record Ids
+     **/ 
     public List<Task__c> selectById(Set<ID> idSet){
         return (List<Task__c>) selectSObjectsById(idSet);
     }

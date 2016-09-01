@@ -6,7 +6,7 @@
 
 public with sharing class TimeEntries extends SObjectDomain{
 
-    public TimeEntries(List<Time_Entry__c> sObjectList){
+    public TimeEntries(List<Time_Entry__c> sObjectList){                    
         // Domain classes are initialised with lists to enforce bulkification throughout
         super(sObjectList);
     }    

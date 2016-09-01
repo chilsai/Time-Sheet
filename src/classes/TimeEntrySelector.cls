@@ -1,5 +1,5 @@
 /**
- * 
+ *  Selector Class to Construct the Dynamic Query for Time Entry(Sobject)
  **/
 public class TimeEntrySelector extends SObjectSelector {
 
@@ -17,7 +17,9 @@ public class TimeEntrySelector extends SObjectSelector {
         return Time_Entry__c.sObjectType;
     }
 
-
+    /**
+     * Queries Time Entry records Ids
+     **/ 
     public List<Time_Entry__c> selectById(Set<ID> idSet){
         return (List<Time_Entry__c>) selectSObjectsById(idSet);
     }

@@ -162,15 +162,21 @@ public virtual with sharing class SObjectDomain {
         }
         else
         {
-            // Process the runtime Apex Trigger context 
-            triggerHandler(constructor, 
-                Trigger.isBefore, 
-                Trigger.isAfter, 
-                Trigger.isInsert, 
-                Trigger.isUpdate, 
-                Trigger.isDelete, 
-                Trigger.new, 
-                Trigger.oldMap);
+            map<string,Trigger_Seettings__c> triggerSettings = Trigger_Seettings__c.getAll();
+            
+            system.debug('SSdomainClassName --- '+domainClassName);
+            system.debug('StriggerSettings--- '+triggerSettings);            
+            if(triggerSettings.containskey(domainClassName) && triggerSettings.get(domainClassName).Enable__c){
+                // Process the runtime Apex Trigger context 
+                triggerHandler(constructor, 
+                    Trigger.isBefore, 
+                    Trigger.isAfter, 
+                    Trigger.isInsert, 
+                    Trigger.isUpdate, 
+                    Trigger.isDelete, 
+                    Trigger.new, 
+                    Trigger.oldMap);
+            }
         }
     }
     

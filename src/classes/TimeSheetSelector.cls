@@ -1,6 +1,7 @@
 /**
- * 
+ *  Selector Class to Construct the Dynamic Query for Time Sheet (Sobject)
  **/
+ 
 public class TimeSheetSelector extends SObjectSelector {
 
     public List<Schema.SObjectField> getSObjectFieldList(){    
@@ -14,6 +15,9 @@ public class TimeSheetSelector extends SObjectSelector {
         return Time_Sheet__c.sObjectType;
     }
 
+    /**
+     * Queries Time Entry records Ids
+     **/ 
     public List<Time_Sheet__c> selectById(Set<ID> idSet){
         return (List<Time_Sheet__c>) selectSObjectsById(idSet);
     }

@@ -1,7 +1,10 @@
+/*
+ *  Test class to Test ScheduleGenerateTimeSheet and GenerateTimeSheetBatch
+ *
+ */
+ 
 @isTest
 private class TestScheduleGenerateTimeSheet {
-
-
 
     @testSetup static void LoadDateForTimeEntries() {
         Project__c proj = new Project__c();
